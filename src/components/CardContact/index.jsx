@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useForm } from "react-hook-form";
 import { ContactContext } from "../../contexts/contact";
 import { yupResolver } from "@hookform/resolvers/yup";
