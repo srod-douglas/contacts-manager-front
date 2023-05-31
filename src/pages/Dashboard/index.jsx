@@ -16,12 +16,13 @@ function Dashboard() {
             <header id='redefine'>
                 <div>
                     <span>Clients Manager</span>
+                    
                 </div>
                 <nav>
                     <span>hello, user</span>
-                    <Link to={'profile'}>profile</Link>
-                    <Link to={'profile/contacts'}>manage contacts</Link>
-                    <button onClick={() => clientLogout()}>logout</button>
+                    <Link to={'profile'}>profile </Link>
+                    <Link to={'profile/contacts'}>manage contacts </Link>
+                    <button onClick={() => clientLogout()}>logout </button>
                 </nav>
             </header>
             <main>

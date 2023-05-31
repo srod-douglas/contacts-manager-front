@@ -7,7 +7,7 @@ export const ContactProvider = ({ children }) => {
     const token = localStorage.getItem('@token')
     const [contact, setContact] = useState(null)
     const [search, setSearch] = useState(false)
-    const [id, setId] = useState(null)
+    const [id, setId] = useState(0)
     const [allContacts, setAllContacts] = useState(null)
 
     const createContact = async (data) => {
@@ -30,8 +30,10 @@ export const ContactProvider = ({ children }) => {
     }
 
     const readContact = async (id) => {
-        try{
+        // if(id === 0)toast.warning('id not found')
 
+        try{
+        
             const res = await toast.promise(
                 api.get(`/contacts/${id}`, {
                     headers:{
@@ -71,31 +73,34 @@ export const ContactProvider = ({ children }) => {
 
     }
 
-    useEffect(() => {
+    const updateContact = async (data) => {
 
-        (async() => {
-            try{
-                const token = localStorage.getItem('@token')
-                    const { id, ...rest } = contact
-                    console.log(contact)
-                    const idContact = +id
-
-                    await toast.promise(
-                        api.patch(`/contacts/${idContact}`, rest, {
-                            headers:{
-                                Authorization: `Bearer ${token}`
-                            }
-                        }),
-                        {
-                            pending: 'Loading...',
-                            success: 'Contact updated!'
-                        },
-                        {autoClose: 800},
-                    )
+        try{
+            const token = localStorage.getItem('@token')
+                const { id, ...rest } = data
+                // console.log(contact)
+                const idContact = +id
+                idContact === 0 ? toast.warning('id not found') : (
+                await toast.promise(
+                    api.patch(`/contacts/${idContact}`, rest, {
+                        headers:{
+                            Authorization: `Bearer ${token}`
+                        }
+                    }),
+                    {
+                        pending: 'Loading...',
+                        success: 'Contact updated!'
+                    },
+                    {autoClose: 800},
+                ))
     
-                }catch(err){toast.error(err.response)}
+            }catch(err){toast.error(err.response)}
+    }
+    useEffect(() => {
+        (async() => {
+            if(id > 0) await readContact(id)
         })()
-    }, [])
+    }, [id])
 
     const deleteContact = async (id) => {
         try{
@@ -118,7 +123,7 @@ export const ContactProvider = ({ children }) => {
 
     return (
         <ContactContext.Provider
-            value={{ contact, setContact, setAllContacts, listContacts, allContacts, id, setId, search, setSearch, createContact, readContact, deleteContact }}
+            value={{ contact, setContact, setAllContacts, listContacts, allContacts, id, setId, search, setSearch, createContact, readContact, updateContact, deleteContact }}
         >
             {children}
         </ContactContext.Provider>

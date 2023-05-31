@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { ContactContext } from "../../contexts/contact";
 
 export const UpdateContact = () => {
-    const { setContact } = useContext(ContactContext)
+    const { setContact, updateContact } = useContext(ContactContext)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(SchemaUpdateContact)
@@ -15,8 +15,8 @@ export const UpdateContact = () => {
         Object.keys(data).forEach((key) => {
             if(data[key] === '') delete data[key]
         })
-        setContact(data)
-        setTimeout(() => reset(), 1000)
+        updateContact(data)
+        reset()
     }
 
     return (
