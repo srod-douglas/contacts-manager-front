@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { SchemaRegister } from "../../components/Validators/SchemaRegister";
 
+
 function Register () {
     const { clientRegister } = useContext(ClientContext)
 
