@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaLogin } from '../../components/Validators/SchemaLogin'
 import { useForm } from 'react-hook-form';
+import { EyeIcon } from '@heroicons/react/outline';
+
 
 const Login = () => {
     const { clientLogin } = useContext(ClientContext)
@@ -29,8 +31,10 @@ const Login = () => {
                         <input placeholder='email' {...register('email')} class='h-12 pl-3 placeholder-gray-500 placeholder-opacity-100 rounded bg-slate-900 outline-none text-gray-300 ring-black caret-slate-500 ' />
                         {errors.email && <span class='text-red-500 -mt-16 ml-3'>{errors.email.message}</span>}
 
-                        <input placeholder='password' {...register('password')} class='h-12 pl-3 placeholder-gray-500 placeholder-opacity-100 rounded bg-slate-900 outline-none text-gray-300 ring-black caret-slate-500' />
+                        <input placeholder='password' type='password' {...register('password')} class='h-12 pl-3 placeholder-gray-500 placeholder-opacity-100 rounded bg-slate-900 outline-none text-gray-300 ring-black caret-slate-500' />
                         {errors.password && <span class='text-red-500 -mt-16 ml-3'>{errors.password.message}</span>}
+
+                        <EyeIcon className='h-7 w-7 absolute top-2/4 left-3/4 ml-8'/>
 
                         <button type='submit' class='h-12 w-full text-gray-300 self-center bg-gradient-to-t from-slate-950 opacity-50 hover:opacity-100'>login</button>
                         <div class='flex flex-col h-1.5 self-center justify-center place-items-center gap-5'>
