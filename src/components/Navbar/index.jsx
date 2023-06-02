@@ -1,162 +1,58 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import { LogoutIcon } from "@heroicons/react/outline"
+import { Link, useNavigate } from "react-router-dom"
+import { ClientContext } from "../../contexts/client"
+import { useContext } from "react"
+import { ContactContext } from "../../contexts/contact"
+import { ListContacts } from "../ListContacts"
+import logo from '../../public/assets/logo/5.png'
+import { UpdateContact } from "../UpdateContact"
+// import { UpdateContact } from "../UpdateContact"
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+export const NavSide = () => {
+    const navigate = useNavigate()
+  const { clientLogout } = useContext(ClientContext)
+  const { listContacts, updateContact, isOpenRead, setIsOpenRead, isOpenUpdate, setIsOpenUpdate } = useContext(ContactContext)
+  // const { isReadOpen, setIsReadOpen, isCreateOpen, setIsCreateOpen, isUpdateOpen, setIsUpdateOpen, isDeleteOpen, setIsDeleteOpen} = useContext(ContactContext)
 
-function NavbarDashboard() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null | HTMLElement);
-  const [anchorElUser, setAnchorElUser] = React.useState(null | HTMLElement);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const ensureMenu = (menu) => {
+  //   if(menu === 'all') setIsReadOpen(!isReadOpen)
+  //   if(menu === 'create') setIsCreateOpen(!isCreateOpen)
+  //   if(menu === 'update') setIsUpdateOpen(!isUpdateOpen)
+  //   if(menu === 'delete') setIsDeleteOpen(!isDeleteOpen)
+    
+  // }
+    const test = (value) => {
+        if(value === 'all'){
+            setIsOpenRead(!isOpenRead)
+            navigate('dashboard')
+        }
+        if(value === 'update'){
+            setIsOpenUpdate(!isOpenUpdate)
+            navigate('update-contacts')
+        }
+        if(value === 'all'){
+            setIsOpenRead(!isOpenRead)
+            navigate('dashboard/delete-contact')
+        }
+    }
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+    <header id='redefine' className='animate-[navLeft_3s_ease-out_1] delay-1000 translate-x-0 flex flex-col justify-around w-36 shadow-lg shadow-white absolute left-0 top-0 h-full'>
+                <div className='flex flex-col items-center self-center justify-between w-20 h-screen'>
+                    <div>
+                        <div onClick={() => listContacts()} className='flex flex-col w-full h-2/5 cursor-pointer'>
+                            <img className='mt-16' src={logo} />
+                            <span  className=' text-center text-white'>Contacts Manager</span>
+                        </div>
+                    </div>
+                    <nav className='flex flex-col justify-around h-2/5 w-20 place-items-center'>
+                        <button className='-mt-16 text-white' onClick={() => test('update')}>update contact</button>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
+                        <Link className='-mt-16 text-white' to={'/profile'}>profile</Link>
+                        <Link className='-mt-16 text-white' to={'profile/contacts'}>contacts</Link>
+                        <LogoutIcon className='h-7 w-7 -mt-16 stroke-white' onClick={() => clientLogout()}>logout </LogoutIcon>
+                    </nav>
+                </div>
+            </header>
+  )
 }
-export default NavbarDashboard;

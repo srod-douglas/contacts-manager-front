@@ -3,7 +3,8 @@ import Dashboard from "../pages/Dashboard";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Forgot from "../pages/Forgot";
-
+import { UpdateContact } from "../components/UpdateContact";
+import { DeleteContact } from '../components/DeleteContact'
 
 const RoutesMain = () => {
   return (
@@ -12,7 +13,12 @@ const RoutesMain = () => {
       <Route path="register" element={<Register />}/>
       <Route path="login" element={<Login />} />
       <Route path="forgot" element={<Forgot />} />
-      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="dashboard" element={<Dashboard />}>
+        <Route path="update-contacts" element={<UpdateContact />} />
+        <Route path="delete-contacts" element={<DeleteContact />} />
+      
+      
+      </Route>
     </Routes>
   );
 };

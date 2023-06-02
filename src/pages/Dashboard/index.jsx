@@ -1,52 +1,46 @@
 import { useContext } from "react"
-import { Link } from "react-router-dom"
-import { ClientContext } from "../../contexts/client"
 import { UpdateContact } from '../../components/UpdateContact'
 import { ListContacts } from "../../components/ListContacts"
-import { CreateContact } from "../../components/CreateContact"
 import { CardContact } from "../../components/CardContact"
 import { ContactContext } from "../../contexts/contact"
+import { NavSide } from "../../components/Navbar"
 
 function Dashboard() {
-    const { clientLogout } = useContext(ClientContext)
-    const { listContacts } = useContext(ContactContext)
 
+    const { listContacts, isOpenRead, isOpenUpdate, setIsOpenRead } = useContext(ContactContext)
+    
     return (
-        <>
-            <header id='redefine'>
-                <div>
-                    <span>Clients Manager</span>
-                    
-                </div>
-                <nav>
-                    <span>hello, user</span>
-                    <Link to={'profile'}>profile </Link>
-                    <Link to={'profile/contacts'}>manage contacts </Link>
-                    <button onClick={() => clientLogout()}>logout </button>
-                </nav>
-            </header>
-            <main>
-                <section>
-                    <h2>Have a new contact? Go create!</h2>
-                    <CreateContact />
-                </section>
-                <section>
-                    <h2>Update contact</h2>
-                    <UpdateContact />
-                </section>
-                <section>
-                    <h2>View contact by ID</h2>
-                    <CardContact />
-                </section>
-                <section>
-                    <button onClick={() => listContacts()}>Or, view all contacts?</button>
-                    {listContacts && (
-                        <ListContacts />
-                    )}
+        <div className='animate-[fade_1s_ease-in] bg-dashboard bg-blend-darken bg-cover static'>
+            <NavSide/>
+            <main className=' flex items-center self-center justify-around h-full'>
+                <div className='w-full h-screen'>
+                    <section className='h-screen py-16 w-full flex justify-center'>
+                        {isOpenRead && <ListContacts />}
+                        {/* <CreateContact /> */}
+                    </section>
+                    <section className='h-screen py-16 w-full flex justify-center'>
+                        {isOpenUpdate && <UpdateContact />}
+                        {/* <CreateContact /> */}
+                    </section>
+                    {/* <section>
+                        <h2 className='text-white'>Update contact</h2>
+                        <UpdateContact />
+                    </section>
+                    <section>
+                        <h2 className='text-white'>View contact by ID</h2>
+                        <CardContact />
+                    </section>
+                    <section>
+                        <button onClick={() => listContacts()}>Or, view all contacts?</button>
+                        {listContacts && (
+                            <ListContacts />
+                        )}
 
-                </section>
+                    </section> */}
+
+                </div>
             </main>
-        </>
+        </div>
     )
 }
 

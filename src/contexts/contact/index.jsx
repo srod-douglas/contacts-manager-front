@@ -5,10 +5,15 @@ import { toast } from 'react-toastify';
 export const ContactContext = createContext({})
 export const ContactProvider = ({ children }) => {
     const token = localStorage.getItem('@token')
-    const [contact, setContact] = useState(null)
-    const [search, setSearch] = useState(false)
     const [id, setId] = useState(0)
+    const [search, setSearch] = useState(false)
+    const [contact, setContact] = useState(null)
     const [allContacts, setAllContacts] = useState(null)
+
+    const [isOpenRead, setIsOpenRead] = useState(true)
+    const [isOpenCreate, setIsOpenCreate] = useState(false)
+    const [isOpenUpdate, setIsOpenUpdate] = useState(false)
+    const [isOpenDelete, setIsOpenDelete] = useState(false)
 
     const createContact = async (data) => {
         try{
@@ -123,7 +128,7 @@ export const ContactProvider = ({ children }) => {
 
     return (
         <ContactContext.Provider
-            value={{ contact, setContact, setAllContacts, listContacts, allContacts, id, setId, search, setSearch, createContact, readContact, updateContact, deleteContact }}
+            value={{ contact, setContact, allContacts, setAllContacts, id, setId, search, setSearch, isOpenRead, setIsOpenRead, isOpenCreate, setIsOpenCreate, isOpenUpdate, setIsOpenUpdate, isOpenDelete, setIsOpenDelete, listContacts, createContact, readContact, updateContact, deleteContact }}
         >
             {children}
         </ContactContext.Provider>

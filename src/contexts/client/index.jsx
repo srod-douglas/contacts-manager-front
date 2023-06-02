@@ -59,7 +59,6 @@ export const ClientProvider = ({ children }) => {
     }
     
     const token = localStorage.getItem('@token')
-    // const location = useLocation()
     
     useEffect(() => {
         ( async () => {

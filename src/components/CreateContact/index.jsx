@@ -24,6 +24,7 @@ export const CreateContact = () => {
         <>
             <section>
                 <form onSubmit={handleSubmit(submit)}>
+                    <h2 className='text-white'>Have a new contact? Go create!</h2>
                     <fieldset>
                         <input placeholder='name' {...register("first_name")} />
                         {errors.name && <span>{errors.name.message}</span>}

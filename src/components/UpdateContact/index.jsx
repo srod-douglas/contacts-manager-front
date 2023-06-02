@@ -1,11 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { SchemaUpdateContact } from "../../components/Validators/SchemaUpdateContact";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ContactContext } from "../../contexts/contact";
 
 export const UpdateContact = () => {
-    const { setContact, updateContact } = useContext(ContactContext)
+    const { setContact, updateContact, isOpenUpdate } = useContext(ContactContext)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(SchemaUpdateContact)
@@ -19,8 +19,12 @@ export const UpdateContact = () => {
         reset()
     }
 
+    useEffect(() => {
+        return () => console.log('desmontou o Update.')
+    }, [])
     return (
-        <>
+        <>  {isOpenUpdate && 
+        
             <section>
                 <form onSubmit={handleSubmit(submit)}>
 
@@ -51,6 +55,7 @@ export const UpdateContact = () => {
                     <button type='button' onClick={handleSubmit(submit)}>update</button>
                 </form>
             </section>
+        }
         </>
     )
 }
