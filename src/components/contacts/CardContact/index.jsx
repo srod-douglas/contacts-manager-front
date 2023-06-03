@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { useForm } from "react-hook-form";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SchemaId } from "../Validators/SchemaId";
+import { SchemaId } from "../../Validators/SchemaId";
 import { toast } from "react-toastify";
 
 export const CardContact = () => {

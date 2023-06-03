@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { ContactContext } from "../../contexts/contact";
 
 export const UpdateContact = () => {
-    const { setContact, updateContact, isOpenUpdate } = useContext(ContactContext)
+    const { updateContact } = useContext(ContactContext)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(SchemaUpdateContact)
@@ -22,40 +22,39 @@ export const UpdateContact = () => {
     useEffect(() => {
         return () => console.log('desmontou o Update.')
     }, [])
+
     return (
-        <>  {isOpenUpdate && 
-        
             <section>
                 <form onSubmit={handleSubmit(submit)}>
-
+                <div className='form-div-titles'>
+                        <h2 className='text-center text-gray-300 text-xl font-extralight dark:text-slate-200 opacity-90'>Update your contact</h2>
+                    </div>
                     <fieldset>
-                        <input placeholder='ID contact' {...register("id")} type="number"/>
+                        <input className='input' placeholder='ID contact' {...register("id")} type="number"/>
                         {errors.id && <span>{errors.id.message}</span>}
                     </fieldset>
 
                     <fieldset>
-                        <input placeholder='name' {...register("first_name")} />
+                        <input className='input' placeholder='name' {...register("first_name")} />
                     </fieldset>
 
                     <fieldset>
-                        <input placeholder='last name' {...register("last_name")} />
+                        <input className='input' placeholder='last name' {...register("last_name")} />
                         {errors.last_name && <span>{errors.last_name.message}</span>}
                     </fieldset>
 
                     <fieldset>
-                        <input placeholder='email' {...register("email")} />
+                        <input className='input' placeholder='email' {...register("email")} />
                         {errors.email && <span>{errors.email.message}</span>}
                     </fieldset>
 
                     <fieldset>
-                        <input placeholder='phone' {...register("phone")} />
+                        <input className='input' placeholder='phone' {...register("phone")} />
                         {errors.phone && <span>{errors.phone.message}</span>}
                     </fieldset>
 
-                    <button type='button' onClick={handleSubmit(submit)}>update</button>
+                    <button type='button' id='btn-login' onClick={handleSubmit(submit)}>update</button>
                 </form>
             </section>
-        }
-        </>
     )
 }
