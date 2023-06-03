@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 export const ClientContext = createContext({})
 export const ClientProvider = ({ children }) => {
 
-    const [client, setClient] = useState(null)
+    const tokenUser = localStorage.getItem('@token') || null
+    const [client, setClient] = useState('new')
     const navigate = useNavigate()
 
     const clientLogin = async (data) => {
@@ -22,13 +23,18 @@ export const ClientProvider = ({ children }) => {
                 {autoClose: 800}
             )
 
-            const { token } = res.data
+            const { token, user } = res.data
             api.defaults.headers.common.authorization = `Bearer ${token}`
 
+            setClient(user)
             localStorage.setItem('@token', token)
+
             setTimeout(() => navigate('/dashboard'), 500)
 
-        }catch(err){toast.error(err.response.data.message)}
+        }catch(err){
+            toast.error(err.data)
+            navigate('')
+        }
     }
 
     const clientRegister = async (data) => {
@@ -58,21 +64,22 @@ export const ClientProvider = ({ children }) => {
         navigate('/')
     }
     
-    const token = localStorage.getItem('@token')
-    // const location = useLocation()
-    
     useEffect(() => {
-        ( async () => {
 
-            if (!token){
+        if(!tokenUser && !client){
+            toast.error('user not authorized. Login here')
+            navigate('')
+        }
+        return () => console.log('desmontou a dashboard')
 
-            }
-        })()
-    }, [token])
+    }, [])
+    // useEffect(() => {
+
+    // })
 
     return (
         <ClientContext.Provider
-            value={{ client, clientLogin, clientRegister, clientLogout }}
+            value={{ client, clientLogin, clientRegister, clientLogout, tokenUser }}
         >
             {children}
         </ClientContext.Provider>
