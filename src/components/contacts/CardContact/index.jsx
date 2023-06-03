@@ -1,34 +1,32 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useForm } from "react-hook-form";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SchemaId } from "../Validators/SchemaId";
+import { SchemaId } from "../../Validators/SchemaId";
+import { toast } from "react-toastify";
 
 export const CardContact = () => {
     const { readContact, contact, id, setId } = useContext(ContactContext)
 
-    const { register, handleSubmit, reset } = useForm({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolvers: yupResolver(SchemaId)
     })
 
     const submit = async (data) => {
-        setId(+data.id)
-        reset()
-    }
-
-    useEffect(() => {
-        const token = localStorage.getItem('@token')
-        if(token && id){
-            readContact(id)
+        if(+data.id === 0) {
+            toast.warning('id not found')
+            setId(null)
+            return reset()
         }
-    }, [id])
-
+        setId(+data.id)
+    }
 
     return(
         <>
             <form onSubmit={handleSubmit(submit)}>
                 <fieldset>
                     <input placeholder='id contact' type='number' {...register("id")} />
+                    {errors.id && <span>{errors.id.message}</span>}
                     <button>search</button>
                 </fieldset>
             </form>
