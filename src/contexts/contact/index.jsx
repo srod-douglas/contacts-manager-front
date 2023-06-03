@@ -1,13 +1,16 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../../services/api';
 import { toast } from 'react-toastify';
+import { ClientContext } from '../client';
+
 
 export const ContactContext = createContext({})
 export const ContactProvider = ({ children }) => {
-    const token = localStorage.getItem('@token')
-    const [contact, setContact] = useState(null)
-    const [search, setSearch] = useState(false)
+
+    const { tokenUser, clientLogout } = useContext(ClientContext)
     const [id, setId] = useState(0)
+    const [search, setSearch] = useState(false)
+    const [contact, setContact] = useState(null)
     const [allContacts, setAllContacts] = useState(null)
 
     const createContact = async (data) => {
@@ -16,7 +19,7 @@ export const ContactProvider = ({ children }) => {
             await toast.promise(
                 api.post('/contacts', data, {
                     headers:{
-                        auth: `Bearer ${token}`
+                        auth: `Bearer ${tokenUser}`
                     }
                 }),
                 {
@@ -26,18 +29,19 @@ export const ContactProvider = ({ children }) => {
                 {autoClose: 800}
             )
 
-        }catch(err){toast.error(err.response.data.message)}
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
     }
 
     const readContact = async (id) => {
-        // if(id === 0)toast.warning('id not found')
 
         try{
         
             const res = await toast.promise(
                 api.get(`/contacts/${id}`, {
                     headers:{
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${tokenUser}`
                     }
                 }),
                 {
@@ -47,54 +51,58 @@ export const ContactProvider = ({ children }) => {
             const contact = res.data
             setContact(contact)
 
-        }catch(err){toast.error(err.response.data.message)}
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
     }
-
-
 
     const listContacts = async () => {
         try{
-            const token = localStorage.getItem('@token')
+
             const res = await toast.promise(
                 api.get('/contacts', {
                     headers:{
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${tokenUser}`
                     }
                 }),
                 {
-                    pending: 'Loading...'
+                    pending: 'Loading...',
+                    success: 'Loaded!'
                 },
+                {autoClose: 1500}
             )
 
             const allContacts = res.data
             setAllContacts(allContacts)
 
-        }catch(err){toast.error(err.response.message)}
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
 
     }
 
     const updateContact = async (data) => {
 
         try{
-            const token = localStorage.getItem('@token')
-                const { id, ...rest } = data
-                // console.log(contact)
-                const idContact = +id
-                idContact === 0 ? toast.warning('id not found') : (
-                await toast.promise(
-                    api.patch(`/contacts/${idContact}`, rest, {
-                        headers:{
-                            Authorization: `Bearer ${token}`
-                        }
-                    }),
-                    {
-                        pending: 'Loading...',
-                        success: 'Contact updated!'
-                    },
-                    {autoClose: 800},
-                ))
-    
-            }catch(err){toast.error(err.response)}
+            const { id, ...rest } = data
+            const idContact = +id
+            idContact === 0 ? toast.warning('id not found') : (
+            await toast.promise(
+                api.patch(`/contacts/${idContact}`, rest, {
+                    headers:{
+                        Authorization: `Bearer ${tokenUser}`
+                    }
+                }),
+                {
+                    pending: 'Loading...',
+                    success: 'Contact updated!'
+                },
+                {autoClose: 1500},
+            ))
+
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
     }
     useEffect(() => {
         (async() => {
@@ -108,22 +116,24 @@ export const ContactProvider = ({ children }) => {
             await toast.promise(
                 api.delete(`/contacts/${id}`, {
                     headers:{
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${tokenUser}`
                     }
                 }),
                 {
                     pending: 'Loading...',
                     success: 'Contact deleted!'
                 },
-                {autoClose: 800},
+                {autoClose: 1500},
             )
 
-        }catch(err){toast.error(err.response.data.message)}
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
     }
 
     return (
         <ContactContext.Provider
-            value={{ contact, setContact, setAllContacts, listContacts, allContacts, id, setId, search, setSearch, createContact, readContact, updateContact, deleteContact }}
+            value={{ contact, setContact, allContacts, setAllContacts, id, setId, search, setSearch, listContacts, createContact, readContact, updateContact, deleteContact }}
         >
             {children}
         </ContactContext.Provider>

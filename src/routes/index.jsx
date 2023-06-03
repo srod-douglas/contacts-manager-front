@@ -3,6 +3,11 @@ import Dashboard from "../pages/Dashboard";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Forgot from "../pages/Forgot";
+import { UpdateContact } from "../components/UpdateContact";
+import { ListContacts } from "../components/contacts/ListContacts";
+import { CreateContact } from "../components/CreateContact";
+import { DeleteContact } from "../components/DeleteContact";
+import { Profile } from "../components/clients/Profile";
 
 const RoutesMain = () => {
   return (
@@ -11,9 +16,15 @@ const RoutesMain = () => {
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route path="forgot" element={<Forgot />} />
-      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="dashboard" element={<Dashboard />}>
+        <Route path="" element={<Profile />} />
+        <Route path="new-contact" element={<CreateContact />} />
+        <Route path="contacts" element={<ListContacts />} />
+        <Route path="update-contact" element={<UpdateContact />} />
+        <Route path="delete-contact" element={<DeleteContact />} />
+      </Route>
     </Routes>
   );
 };
 
-export default RoutesMain
+export default RoutesMain;
