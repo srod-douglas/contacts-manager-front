@@ -3,10 +3,10 @@ import Dashboard from "../pages/Dashboard";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Forgot from "../pages/Forgot";
-import { UpdateContact } from "../components/UpdateContact";
+import { UpdateContact } from "../components/contacts/UpdateContact";
 import { ListContacts } from "../components/contacts/ListContacts";
-import { CreateContact } from "../components/CreateContact";
-import { DeleteContact } from "../components/DeleteContact";
+import { CreateContact } from "../components/contacts/CreateContact";
+import { DeleteContact } from "../components/contacts/DeleteContact";
 import { Profile } from "../components/clients/Profile";
 
 const RoutesMain = () => {

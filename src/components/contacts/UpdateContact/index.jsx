@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { SchemaUpdateContact } from "../../components/Validators/SchemaUpdateContact";
+import { SchemaUpdateContact } from "../../../components/Validators/SchemaUpdateContact";
 import { useContext, useEffect } from "react";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 
 export const UpdateContact = () => {
     const { updateContact } = useContext(ContactContext)

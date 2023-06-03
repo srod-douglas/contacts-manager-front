@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { SchemaCreateContact } from "../../components/Validators/SchemaCreateContact";
+import { SchemaCreateContact } from '../../Validators/SchemaCreateContact'
 import { useContext } from "react";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 
 
 export const CreateContact = () => {

@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 import { useContext } from "react";
-import { SchemaId } from "../Validators/SchemaId";
+import { SchemaId } from '../../Validators/SchemaId';
 
 export const DeleteContact = () => {
     const { deleteContact } = useContext(ContactContext)
