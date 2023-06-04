@@ -58,7 +58,34 @@ export const ClientProvider = ({ children }) => {
         }catch(err){toast.error(err.response.data.message)}
     }
 
+    const updateClient = async (id, data) => {
+
+        try{
+            await toast.promise(
+                api.patch(`/clients/${id}`, data, {
+                    headers:{
+                        Authorization: `Bearer ${tokenUser}`
+                    }
+                }),
+                {
+                    pending: 'Loading...',
+                    success: 'Success! User has been updated',
+                    error: 'Bad request'
+                },
+                {autoClose: 1500},
+            ).then((res) => {
+                console.log(res.data)
+                localStorage.setItem('@client', JSON.stringify(res.data))
+            })
+
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
+    }
+
+
     const clientInfos = async (id)  => {
+
         try{
             const res = await api.get(`/clients/${id}`)
             api.defaults.headers.common.authorization = `Bearer ${tokenUser}`
@@ -87,13 +114,10 @@ export const ClientProvider = ({ children }) => {
         return () => console.log('desmontou a dashboard')
 
     }, [])
-    // useEffect(() => {
-
-    // })
 
     return (
         <ClientContext.Provider
-            value={{ client, clientLogin, clientRegister, clientInfos, clientLogout, tokenUser }}
+            value={{ client, clientLogin, clientRegister, clientInfos, clientLogout, tokenUser ,updateClient }}
         >
             {children}
         </ClientContext.Provider>

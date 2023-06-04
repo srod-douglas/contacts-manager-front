@@ -12,6 +12,7 @@ export const ContactProvider = ({ children }) => {
     const [search, setSearch] = useState(false)
     const [contact, setContact] = useState(null)
     const [allContacts, setAllContacts] = useState(null)
+    const [isDelete, setIsDelete] = useState(null)
 
     const createContact = async (data) => {
         try{
@@ -66,8 +67,7 @@ export const ContactProvider = ({ children }) => {
                     }
                 }),
                 {
-                    pending: 'Loading...',
-                    success: 'Loaded!'
+                    pending: 'Loading...'
                 },
                 {autoClose: 1500}
             )
@@ -133,7 +133,7 @@ export const ContactProvider = ({ children }) => {
 
     return (
         <ContactContext.Provider
-            value={{ contact, setContact, allContacts, setAllContacts, id, setId, search, setSearch, listContacts, createContact, readContact, updateContact, deleteContact }}
+            value={{ contact, setContact, allContacts, setAllContacts, id, setId, search, setSearch, isDelete, setIsDelete, listContacts, createContact, readContact, updateContact, deleteContact }}
         >
             {children}
         </ContactContext.Provider>

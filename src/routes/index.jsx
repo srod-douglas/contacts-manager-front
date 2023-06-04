@@ -8,6 +8,7 @@ import { ListContacts } from "../components/contacts/ListContacts";
 import { CreateContact } from "../components/contacts/CreateContact";
 import { DeleteContact } from "../components/contacts/DeleteContact";
 import { Profile } from "../components/clients/Profile";
+import { ModalDelete } from "../components/contacts/Modal";
 
 const RoutesMain = () => {
   return (
@@ -17,6 +18,7 @@ const RoutesMain = () => {
       <Route path="login" element={<Login />} />
       <Route path="forgot" element={<Forgot />} />
       <Route path="dashboard" element={<Dashboard />}>
+        <Route path="confirm-delete" element={<ModalDelete />} />
         <Route path="" element={<Profile />} />
         <Route path="new-contact" element={<CreateContact />} />
         <Route path="contacts" element={<ListContacts />} />

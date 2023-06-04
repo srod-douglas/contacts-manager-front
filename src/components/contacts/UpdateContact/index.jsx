@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { SchemaUpdateContact } from "../../../components/Validators/SchemaUpdateContact";
+import { SchemaUpdateContact } from '../../Validators/SchemaUpdateContact'
 import { useContext, useEffect } from "react";
-import { ContactContext } from "../../../contexts/contact";
+import { ContactContext } from '../../../contexts/contact';
 
 export const UpdateContact = () => {
     const { updateContact } = useContext(ContactContext)
@@ -25,12 +25,12 @@ export const UpdateContact = () => {
 
     return (
             <section>
-                <form onSubmit={handleSubmit(submit)}>
+                <form className='animate-[fade_.5s_ease-in]' onSubmit={handleSubmit(submit)}>
                 <div className='form-div-titles'>
                         <h2 className='text-center text-gray-300 text-xl font-extralight dark:text-slate-200 opacity-90'>Update your contact</h2>
                     </div>
                     <fieldset>
-                        <input className='input' placeholder='ID contact' {...register("id")} type="number"/>
+                        <input className='input appearance-none' placeholder='ID contact' {...register("id")} type="number" />
                         {errors.id && <span>{errors.id.message}</span>}
                     </fieldset>
 

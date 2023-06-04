@@ -24,7 +24,7 @@ function Register () {
 
     return (
         <>
-            <main className='bg-register bg-cover container flex flex-col h-full max-h-screen max-w-full justify-center m-0  from-slate-950 to-slate-700'>
+            <main className='animate-[fade_1s_ease-in] bg-register bg-cover container flex flex-col h-full max-h-screen max-w-full justify-center m-0  from-slate-950 to-slate-700'>
 
                 <section className='flex flex-col h-5/6 max-h-screen max-w-full justify-center items-center'>
 
