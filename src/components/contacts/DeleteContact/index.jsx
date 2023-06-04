@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 import { useContext } from "react";
-import { SchemaId } from "../Validators/SchemaId";
+import { SchemaId } from '../../Validators/SchemaId';
 
 export const DeleteContact = () => {
     const { deleteContact } = useContext(ContactContext)
@@ -23,7 +23,7 @@ export const DeleteContact = () => {
     return (
         <>
             <section>
-                <form onSubmit={handleSubmit(submit)}>
+                <form className='animate-[fade_.5s_ease-in]' onSubmit={handleSubmit(submit)}>
                     <div className='form-div-titles'>
                         <h2 className='text-center text-gray-300 text-xl font-extralight dark:text-slate-200 opacity-90'>Delete a contact</h2>
                     </div>

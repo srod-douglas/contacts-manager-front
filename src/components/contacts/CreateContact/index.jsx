@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { SchemaCreateContact } from "../../components/Validators/SchemaCreateContact";
+import { SchemaCreateContact } from '../../Validators/SchemaCreateContact'
 import { useContext } from "react";
-import { ContactContext } from "../../contexts/contact";
+import { ContactContext } from "../../../contexts/contact";
 
 
 export const CreateContact = () => {
@@ -22,8 +22,8 @@ export const CreateContact = () => {
 
     return (
         <>
-            <section>
-                <form onSubmit={handleSubmit(submit)}>
+            <section >
+                <form className='animate-[fade_.5s_ease-in]' onSubmit={handleSubmit(submit)}>
                     <div className='form-div-titles'>
                         <h2 className='text-center text-gray-300 text-xl font-extralight dark:text-slate-200 opacity-90'>Have a new contact? Go create!</h2>
                     </div>

@@ -28,7 +28,7 @@ const Login = () => {
     }
 
     return(
-            <main>
+            <main className='bg-dashboard animate-[fade_1s_ease-in]'>
 
                 <section >
                     <form noValidate onSubmit={handleSubmit(submit)} >
