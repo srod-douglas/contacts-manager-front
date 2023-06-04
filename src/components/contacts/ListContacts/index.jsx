@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
+import './style.css'
 import { ContactContext } from "../../../contexts/contact";
 import { UserCircleIcon } from "@heroicons/react/outline";
 import { toast } from "react-toastify";
@@ -12,16 +13,14 @@ import {
   ClipboardCheckIcon,
   TrashIcon
 } from "@heroicons/react/outline";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+
 
 export const ListContacts = () => {
   const { allContacts, setAllContacts, listContacts, isDelete, setIsDelete } =
     useContext(ContactContext);
-  const navigate = useNavigate()
+
   const [idContact, setIdContact] = useState(null);
 
-  console.log(isDelete)
   const copy = async (id) => {
     setIdContact(id);
     try {
@@ -44,65 +43,62 @@ export const ListContacts = () => {
 
   return (
     <>
-
-      <div className="animate-[fade_.5s_ease-in] max-w-full h-7 flex flex-col self-center justify-around items-center ">
-        <h2 className="text-2xl text-center text-gray-300 font-extralight dark:text-slate-200 opacity-90">
+      <div className="div-title">
+        <h2 className='title'>
           Yours Contacts
         </h2>
       </div>
 
-      <ul className="animate-[fade_.5s_ease-in] list h-4/5 w-9/12 grid grid-cols-4 gap-4 px-16 py-8 overflow-y-auto no-scrollbar rounded-3xl ">
+      <ul className='list-container'>
         {allContacts &&
           allContacts.map((contact) => (
-            <li
-              className=" h-full p-4 snap-center bg-black bg-opacity-40 backdrop-blur-md rounded-lg transition ease-in delay-0 hover:!opacity-100 hover:scale-105 hover:shadow-gray-600 hover:shadow-md hover:bg-opacity-60 z-50"
-              key={contact.id}
-            >
-              <div className="flex">
-                <UserCircleIcon className="h-20 stroke-1 stroke-white" />
 
-                <div className="h-full w-full flex flex-col self-center">
-                  <div className="flex gap-2 w-full">
-                    <div className="flex gap-2 w-2/5">
-                      <FingerPrintIcon className="w-4 stroke-white" />
+            <li key={contact.id}>
+              <div className="flex">
+                <UserCircleIcon className="icon-contact" />
+
+                <div className="container-id-first-name">
+                  <div className="div-list-infos">
+                    <div>
+                      <FingerPrintIcon className="icon-white" />
                       <h4 className="text-white ">{contact.id}</h4>
                     </div>
-                    <div
-                      className="flex justify-end w-3/5 z-50"
-                      onClick={() => copy(contact.id)}
-                    >
-                      {idContact == contact.id ? (
-                        <ClipboardCheckIcon className="w-5 stroke-green-500" />
-                      ) : (
-                        <ClipboardCopyIcon className="w-5 stroke-white" />
-                      )}
+                    <div className="div-interact-icons" onClick={() => copy(contact.id)}>
+                      {idContact == contact.id ? 
+                        (
+                          <ClipboardCheckIcon className="icon-green" />
+                        ) : (
+                          <ClipboardCopyIcon className="icon-white-g" />
+                        )
+                      }
                     </div>
                   </div>
 
-                  <div className="flex gap-2 w-full">
-                    <div className="flex gap-2 w-2/5">
-                      <CheckCircleIcon className="w-4 stroke-white" />
+                  <div className="div-list-infos">
+                    <div>
+                      <CheckCircleIcon className="icon-white" />
                       <h4 className="text-white">{contact.first_name}</h4>
                     </div>
-                    <Link to={'/dashboard/confirm-delete'} onClick={() => handlerModal(contact.id)} className="flex justify-end w-3/5 z-50">
-                      <TrashIcon className="w-5 stroke-white" />
+                    <Link to={'/dashboard/confirm-delete'} onClick={() => handlerModal(contact.id)} className="div-interact-icons">
+                      <TrashIcon className="icon-white-g" />
                     </Link>
                   </div>
+
                 </div>
               </div>
 
-              <div className="flex gap-2 w-full">
-                <MailIcon className="w-4 stroke-white" />
+              <div className="div-list-infos">
+                <MailIcon className="icon-white" />
                 <h4 className="text-white">{contact.email}</h4>
               </div>
-              <div className="flex gap-2 w-full">
-                <DeviceMobileIcon className="w-4 stroke-white" />
+              <div className="div-list-infos">
+                <DeviceMobileIcon className="icon-white" />
                 <h4 className="text-white">{contact.phone}</h4>
               </div>
             </li>
           ))}
 
-        {allContacts?.length === 0 && <span>You don't have contacts :( </span>}
+        {allContacts?.length === 0 && <span className='title'>You don't have contacts :( </span>}
       </ul>
     </>
   );

@@ -3,7 +3,43 @@
 @tailwind utilities;
 
 @layer components{
+    .div-title{
+        @apply animate-[fade_.5s_ease-in] max-w-full h-32 -mt-20 flex flex-col self-center justify-around items-center 
+    }
+    .title{
+        @apply text-4xl text-center text-gray-300 font-extralight dark:text-slate-200 opacity-90
+    }
+    .list-container{
+        @apply animate-[fade_.5s_ease-in] list h-3/5 w-9/12 grid grid-cols-4 gap-4 px-16 py-8 overflow-y-auto rounded-3xl
+    }
+    .list-container > li{
+        @apply h-full p-4 snap-center bg-black bg-opacity-40 backdrop-blur-md rounded-lg transition ease-in delay-0 hover:!opacity-100 hover:scale-105 hover:shadow-gray-600 hover:shadow-md hover:bg-opacity-60 z-50
+    }
     .list:hover li{
         @apply opacity-50
+    }
+    .container-id-first-name{
+        @apply h-full w-full flex flex-col self-center
+    }
+    .div-list-infos{
+        @apply flex gap-2 w-full
+    }
+    .div-list-infos > div {
+        @apply flex gap-2 w-full
+    }
+    .div-interact-icons{
+        @apply flex justify-end z-50
+    }
+    .icon-contact{
+        @apply h-20 stroke-1 stroke-white
+    }
+    .icon-white{
+        @apply w-4 stroke-white
+    }
+    .icon-white-g{
+        @apply w-5 stroke-white
+    }
+    .icon-green{
+        @apply w-5 stroke-green-500
     }
 }
