@@ -22,8 +22,8 @@ export const DeleteContact = () => {
 
     return (
         <>
-            <section>
-                <form className='animate-[fade_.5s_ease-in]' onSubmit={handleSubmit(submit)}>
+            <section className='flex justify-center'>
+                <form className='animate-[fade_.5s_ease-in] h-1/3' onSubmit={handleSubmit(submit)}>
                     <div className='form-div-titles'>
                         <h2 className='text-center text-gray-300 text-xl font-extralight dark:text-slate-200 opacity-90'>Delete a contact</h2>
                     </div>
@@ -31,7 +31,7 @@ export const DeleteContact = () => {
                         <input className='input' type='number' autoComplete='off' placeholder='ID contact' {...register("id")} />
                         {errors.id && <span className='input--error'>{errors.id.message}</span>}
                     </fieldset>
-                    <button id='btn-login' type='submit'>delete</button>
+                    <button className='w-full h-1/5 rounded-lg bg-transparent text-red-700 text-xl transition ease-in duration-200 hover:bg-red-700 hover:text-white' type='submit'>Delete</button>
                 </form>
             </section>
         </>
