@@ -4,7 +4,7 @@
 
 @layer components{
     main{
-        @apply bg-main bg-cover container flex flex-col h-full max-h-screen max-w-full justify-center m-0 select-none
+        @apply bg-cover container flex flex-col h-full max-h-screen max-w-full justify-center m-0 select-none
     }
     section{
         @apply flex flex-col h-4/5 w-full items-center
@@ -28,7 +28,7 @@
         @apply relative w-full h-1/2 mt-0
     }
     .input{
-        @apply h-12 w-full pl-3 placeholder-gray-500  rounded bg-neutral-950 outline-none text-gray-300 ring-black caret-slate-500 focus:invalid:border-pink-500
+        @apply h-12 w-full pl-3 placeholder-gray-500  rounded bg-neutral-950 outline-none appearance-none text-gray-300 ring-black caret-slate-500 focus:invalid:border-pink-500
     }
     .input--error{
         @apply text-red-500 -mt-14 ml-3
@@ -52,6 +52,6 @@
         @apply h-7 w-7 absolute top-3 left-3/4 ml-8 stroke-green-600 opacity-80
     }
     .svg--open{
-        @apply h-7 w-7 absolute top-3 left-2/3 ml-8 stroke-red-900 opacity-50
+        @apply h-7 w-7 absolute top-3 left-3/4 ml-8 stroke-red-900 opacity-50
     }
   }

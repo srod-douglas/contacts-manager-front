@@ -7,6 +7,7 @@ export const ClientContext = createContext({})
 export const ClientProvider = ({ children }) => {
 
     const tokenUser = localStorage.getItem('@token') || null
+
     const [client, setClient] = useState('new')
     const navigate = useNavigate()
 
@@ -28,6 +29,7 @@ export const ClientProvider = ({ children }) => {
 
             setClient(user)
             localStorage.setItem('@token', token)
+            localStorage.setItem('@client', JSON.stringify(user))
 
             setTimeout(() => navigate('/dashboard'), 500)
 
@@ -56,9 +58,48 @@ export const ClientProvider = ({ children }) => {
         }catch(err){toast.error(err.response.data.message)}
     }
 
+    const updateClient = async (id, data) => {
+
+        try{
+            await toast.promise(
+                api.patch(`/clients/${id}`, data, {
+                    headers:{
+                        Authorization: `Bearer ${tokenUser}`
+                    }
+                }),
+                {
+                    pending: 'Loading...',
+                    success: 'Success! User has been updated',
+                    error: 'Bad request'
+                },
+                {autoClose: 1500},
+            ).then((res) => {
+                console.log(res.data)
+                localStorage.setItem('@client', JSON.stringify(res.data))
+            })
+
+        }catch(err){
+            toast.error(err.response.statusText)
+        }
+    }
+
+
+    const clientInfos = async (id)  => {
+
+        try{
+            const res = await api.get(`/clients/${id}`)
+            api.defaults.headers.common.authorization = `Bearer ${tokenUser}`
+            localStorage.setItem('@client', JSON.stringify(res.data))
+            setClient(res.data)
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     const clientLogout = async () => {
         setClient(null)
-        localStorage.removeItem('@token')
+        localStorage.clear()
         toast.warning('Disconected', {autoClose:500})
         setTimeout(() => navigate('/'), 500)
         navigate('/')
@@ -73,13 +114,10 @@ export const ClientProvider = ({ children }) => {
         return () => console.log('desmontou a dashboard')
 
     }, [])
-    // useEffect(() => {
-
-    // })
 
     return (
         <ClientContext.Provider
-            value={{ client, clientLogin, clientRegister, clientLogout, tokenUser }}
+            value={{ client, clientLogin, clientRegister, clientInfos, clientLogout, tokenUser ,updateClient }}
         >
             {children}
         </ClientContext.Provider>
