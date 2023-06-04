@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .container-profile{
+        @apply animate-[fade_.5s_ease-in] h-full w-2/4 p-4 flex bg-black bg-opacity-20 backdrop-blur-md rounded-3xl transition ease-in delay-0
+    }
+    .container-left{
+        @apply flex flex-col justify-around w-1/4
+    }
+    .container-left-infos{
+        @apply w-full h-full flex flex-col justify-around
+    }
+    .icon-client{
+        @apply h-36 stroke-1 stroke-white
+    }
+    .container-infos{
+        @apply flex gap-2 w-full
+    }
+    .container-infos > div {
+        @apply flex gap-2 w-2/5
+    }
+    .content{
+        @apply flex gap-2 w-full
+    }
+    .icon-white{
+        @apply w-4 stroke-white
+    }
+    .texts{
+        @apply text-white text-xl
+    }
+    .icon-green{
+        @apply w-4 stroke-green-400
+    }
+    .icon-error{
+        @apply w-4 stroke-red-600
+    }
+    .container-right{
+        @apply flex flex-col items-center justify-start w-3/4
+    }
+    .container-right-infos{
+        @apply w-full h-4 flex justify-start
+    }
+    .container-right-titles{
+        @apply w-2/4 flex items-center justify-around
+    }
+}

@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .container-delete{
+        @apply animate-[fade_.5s_ease-in] flex flex-col items-center justify-around h-full
+    }
+    .div-infos{
+        @apply w-full h-2/5 flex flex-col items-center justify-center gap-24
+    }
+    .title-delete{
+        @apply text-white text-2xl
+    }
+    .sub-title-delete{
+        @apply text-red-600 text-xl
+    }
+    .div-bts-client{
+        @apply w-full h-2/5 flex-col
+    }
+    .div-bts-client > div{
+        @apply flex flex-col items-center h-1/2 gap-8
+    }
+    .btn-confirm{
+        @apply w-full h-1/3 rounded-lg bg-red-300 text-white hover:bg-red-600 transition ease-linear duration-200 text-xl
+    }
+    .btn-cancel-close{
+        @apply w-full h-1/5 rounded-lg bg-transparent text-red-700 text-xl transition ease-in duration-200 hover:bg-black hover:text-white
+    }
+}
