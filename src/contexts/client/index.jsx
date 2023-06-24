@@ -45,7 +45,7 @@ export const ClientProvider = ({ children }) => {
                 api.post('/clients', data),
                 {
                     pending: 'Loading...',
-                    success: 'Welcome!'
+                    success: 'Done!'
                 },
                 {autoClose: 800}
             )
