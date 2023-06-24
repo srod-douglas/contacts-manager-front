@@ -16,7 +16,7 @@ import {
 
 
 export const ListContacts = () => {
-  const { allContacts, setAllContacts, listContacts, isDelete, setIsDelete } =
+  const { allContacts, setAllContacts, listContacts, setIsDelete } =
     useContext(ContactContext);
 
   const [idContact, setIdContact] = useState(null);

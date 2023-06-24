@@ -15,7 +15,6 @@ export const DeleteContact = () => {
             if(data[key] === '') delete data[key]
             if(data[key] === 'e') delete data[key]
         })
-        console.log(data.id)
         await deleteContact(data.id)
         reset()
     }
