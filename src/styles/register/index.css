@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+
+    div, input{
+        @apply w-full
+    }
+
+    div{
+        @apply relative
+    }
+
+    .view-pwd--opened{
+        @apply h-7 w-7 absolute top-3 left-3/4 ml-12 stroke-green-600 opacity-80
+    }
+
+    .view-pwd--closed{
+        @apply h-7 w-7 absolute top-3 left-3/4 ml-12 stroke-red-900 opacity-50
+    }
+
+}

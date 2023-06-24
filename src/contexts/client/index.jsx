@@ -19,10 +19,9 @@ export const ClientProvider = ({ children }) => {
                 {
                     pending: 'Loading...',
                     success: 'Welcome!',
-
                 },
                 {autoClose: 800}
-            )
+            );
 
             const { token, user } = res.data
             api.defaults.headers.common.authorization = `Bearer ${token}`
@@ -46,11 +45,11 @@ export const ClientProvider = ({ children }) => {
                 api.post('/clients', data),
                 {
                     pending: 'Loading...',
-                    success: 'Welcome!'
+                    success: 'Done!'
                 },
                 {autoClose: 800}
             )
-            
+
             const { newClient } = res.data
             setClient(newClient)
             setTimeout(() => navigate('/login'), 500)
@@ -74,7 +73,6 @@ export const ClientProvider = ({ children }) => {
                 },
                 {autoClose: 1500},
             ).then((res) => {
-                console.log(res.data)
                 localStorage.setItem('@client', JSON.stringify(res.data))
             })
 
@@ -82,7 +80,6 @@ export const ClientProvider = ({ children }) => {
             toast.error(err.response.statusText)
         }
     }
-
 
     const clientInfos = async (id)  => {
 
@@ -93,7 +90,7 @@ export const ClientProvider = ({ children }) => {
             setClient(res.data)
 
         }catch(err){
-            console.log(err)
+            console.error(err)
         }
     }
 
@@ -102,23 +99,20 @@ export const ClientProvider = ({ children }) => {
         localStorage.clear()
         toast.warning('Disconected', {autoClose:500})
         setTimeout(() => navigate('/'), 500)
-        navigate('/')
     }
-    
+
     useEffect(() => {
 
         if(!tokenUser && !client){
             toast.error('user not authorized. Login here')
             navigate('')
         }
-        return () => console.log('desmontou a dashboard')
-
+        return () => console.log()
     }, [])
 
     return (
         <ClientContext.Provider
-            value={{ client, clientLogin, clientRegister, clientInfos, clientLogout, tokenUser ,updateClient }}
-        >
+            value={{ client, clientLogin, clientRegister, clientInfos, clientLogout, tokenUser, updateClient }}>
             {children}
         </ClientContext.Provider>
     )
